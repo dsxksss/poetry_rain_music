@@ -17,6 +17,12 @@ allprojects {
 
 rootProject.buildDir = "../build"
 
+repositories {
+    maven { url 'https://maven.aliyun.com/repository/google' }
+    maven { url 'https://maven.aliyun.com/repository/jcenter' }
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+}
+
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
     // Commented previous block and inserted this block, as indicated by

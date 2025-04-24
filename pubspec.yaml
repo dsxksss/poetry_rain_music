@@ -37,6 +37,8 @@ dependencies:
   permission_handler: 11.3.1 # 权限
   fluttertoast: 8.2.12
   device_info_plus: 10.1.2
+  forui: ^0.10.0+1
+  forui_assets: ^0.10.0
 
 dev_dependencies:
   flutter_test:
