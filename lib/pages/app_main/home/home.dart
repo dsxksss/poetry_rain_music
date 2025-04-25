@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:forui/forui.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../components/update_app/check_app_version.dart';
@@ -45,7 +46,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
       children: List.generate(1, (index) {
         return Column(
           children: <Widget>[
-            Text('App渠道：${appEnv.getAppChannel()}'),
+            FButton(label: Text('App渠道：${appEnv.getAppChannel()}'), onPress: () {}),
             _button(
               '跳转test页',
               onPressed: () {
