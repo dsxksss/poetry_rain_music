@@ -6,6 +6,7 @@ import '../../../components/update_app/check_app_version.dart';
 import '../../../routes/route_name.dart';
 import '../../../config/app_env.dart' show appEnv;
 import 'provider/counterStore.p.dart';
+import 'provider/love_duration_store.p.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key, this.params}) : super(key: key);
@@ -46,40 +47,55 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
       children: List.generate(1, (index) {
         return Column(
           children: <Widget>[
-            FButton(label: Text('App渠道：${appEnv.getAppChannel()}'), onPress: () {}),
-            _button(
-              '跳转test页',
-              onPressed: () {
-                Navigator.pushNamed(
-                  context,
-                  RouteName.testDemo,
-                  arguments: {'data': '别名路由传参666'},
-                );
-              },
-            ),
-            Text('状态管理值：${context.watch<CounterStore>().value}'),
-            _button(
-              '加+',
-              onPressed: () {
-                _counter.increment();
-              },
-            ),
-            _button(
-              '减-',
-              onPressed: () {
-                _counter.decrement();
-              },
-            ),
-            _button(
-              '强制更新App',
-              onPressed: () {
-                checkAppVersion(forceUpdate: true);
-              },
-            ),
+            _buildLoveDurationDemo(),
           ],
         );
       }),
     );
+  }
+
+  // 恋爱时长数据演示组件 - 仅作为数据获取示例
+  Widget _buildLoveDurationDemo() {
+    return Consumer<LoveDurationStore>(
+      builder: (context, loveDurationStore, child) {
+        final durationData = loveDurationStore.getDurationData();
+
+        return Container(
+          margin: EdgeInsets.symmetric(vertical: 10.h),
+          padding: EdgeInsets.all(10.r),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey),
+            borderRadius: BorderRadius.circular(8.r),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('恋爱时长数据示例 (使用Provider):',
+                  style: TextStyle(fontWeight: FontWeight.bold)),
+              SizedBox(height: 5.h),
+              Text('天数: ${durationData['days']}'),
+              Text('小时: ${durationData['hours']}'),
+              Text('分钟: ${durationData['minutes']}'),
+              Text('秒数: ${durationData['seconds']}'),
+              SizedBox(height: 5.h),
+              Text('总天数: ${durationData['totalDays']}'),
+              Text('总小时: ${durationData['totalHours']}'),
+              Text('总分钟: ${durationData['totalMinutes']}'),
+              Text('总秒数: ${durationData['totalSeconds']}'),
+              SizedBox(height: 5.h),
+              Text(
+                  '恋爱纪念日: ${_formatDate(loveDurationStore.getAnniversaryDate())}'),
+              Text(
+                  '数据状态: ${loveDurationStore.isBeforeLoveDate ? "倒计时" : "正计时"}'),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  String _formatDate(DateTime date) {
+    return '${date.year}年${date.month}月${date.day}日';
   }
 
   Widget _button(String text, {VoidCallback? onPressed}) {

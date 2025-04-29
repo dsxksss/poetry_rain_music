@@ -15,24 +15,6 @@ import 'my_personal/my_personal.dart';
 import 'search/search.dart';
 import 'hot/hot.dart';
 import 'home/home.dart';
-
-/// [params] 别名路由传递的参数
-/// [params.pageId] 跳转到指定tab页面（0第一页），如果不是别名路由跳转的话，又想实现跳转到指定tab页面，推荐别名路由跳转方式。
-///```dart
-/// // 手动传入参数跳转路由方式如下：
-/// Navigator.of(context).push(
-///   MaterialPageRoute(
-///     builder: (context) => BarTabs(
-///       params: {'pageId': 2}, // 跳转到tabs的第三个页面
-///     ),
-///   )
-/// );
-///
-/// // 别名路由跳转方式如下：
-/// Navigator.pushNamed(context, '/testDemo', arguments: {
-///   'pageId': 2,
-/// });
-/// ```
 class AppMain extends StatefulWidget {
   final dynamic params;
 
